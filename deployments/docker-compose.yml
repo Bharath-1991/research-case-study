@@ -1,0 +1,25 @@
+version: "2"
+services:
+  app:
+    container_name: simple-app
+    build:
+      context: ../
+      dockerfile: deployments/Dockerfile
+    ports:
+      - "5000:5000"
+    volumes:
+      - .:/sample-app
+    networks:
+      - mynet
+  mongo:
+    container_name: mongo-db
+    image: mongo:latest
+    ports:
+      - "27017:27017"
+    volumes:
+      - .:/mongo-app
+    networks:
+      - mynet
+networks:
+  mynet:
+    driver: bridge
